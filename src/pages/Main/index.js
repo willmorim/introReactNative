@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Keyboard, ActivityIndicator } from 'react-native';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../services/api';
@@ -25,10 +25,10 @@ export default class Main extends Component {
   };
 
   static propTypes = {
-    naviation: PropTypes.shape({
+    navigation: PropTypes.shape({
       navigate: PropTypes.func,
-    }).isRequired
-  }
+    }).isRequired,
+  };
 
   state = {
     newUser: '',
@@ -40,17 +40,16 @@ export default class Main extends Component {
     const users = await AsyncStorage.getItem('users');
 
     if (users) {
-      this.setState({ users: JSON.parse(users)});
+      this.setState({ users: JSON.parse(users) });
     }
   }
 
   componentDidUpdate(_, prevState) {
     const { users } = this.state;
 
-    if(prevState.users !== users) {
+    if (prevState.users !== users) {
       AsyncStorage.setItem('users', JSON.stringify(users));
     }
-
   }
 
   handleAddUser = async () => {
@@ -76,11 +75,11 @@ export default class Main extends Component {
     Keyboard.dismiss();
   };
 
-  handleNavigate = (user) => {
-    const  { navigation } = this.props
+  handleNavigate = user => {
+    const { navigation } = this.props;
 
-    navigation.navigate('User', { user })
-  }
+    navigation.navigate('User', { user });
+  };
 
   render() {
     const { users, newUser, loading } = this.state;
@@ -124,5 +123,3 @@ export default class Main extends Component {
     );
   }
 }
-
-
